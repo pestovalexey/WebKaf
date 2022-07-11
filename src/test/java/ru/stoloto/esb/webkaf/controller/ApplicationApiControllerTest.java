@@ -23,18 +23,18 @@ import static org.springframework.boot.test.context.SpringBootTest.*;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.yml")
-class WebKafBindingApiControllerTest extends WebKafBaseTest {
+class ApplicationApiControllerTest extends WebKafBaseTest {
 
-    public WebKafBindingApiControllerTest(@Autowired RestTemplate restTemplate,
-                                          @Autowired ObjectMapper jsonMapper,
-                                          @LocalServerPort int port) {
+    public ApplicationApiControllerTest(@Autowired RestTemplate restTemplate,
+                                        @Autowired ObjectMapper jsonMapper,
+                                        @LocalServerPort int port) {
         this.restTemplate = restTemplate;
         this.jsonMapper = jsonMapper;
         this.port = port;
     }
 
     @BeforeEach
-    void test_addConfig() throws Exception {
+    void addConfig() throws Exception {
         URL url = new URL(http, host, port, "/webkaf/api/v1/addConfig");
 
         ResponseEntity<BindingResponse> response = restTemplate.postForEntity(url.toURI(),
@@ -45,7 +45,7 @@ class WebKafBindingApiControllerTest extends WebKafBaseTest {
     }
 
     @Test
-    void test_getConfig() throws Exception {
+    void getConfig() throws Exception {
         URL url = new URL(http, host, port, "/webkaf/api/v1/getConfig");
 
         HttpEntity<BindingRequest> requestPost = DummyObjectFactory.createGetConfigRequestPost();
@@ -57,7 +57,7 @@ class WebKafBindingApiControllerTest extends WebKafBaseTest {
     }
 
     @AfterEach
-    void test_delConfig() throws Exception {
+    void delConfig() throws Exception {
         URL url = new URL(http, host, port, "/webkaf/api/v1/delConfig");
 
         HttpEntity<String> requestPost = DummyObjectFactory.createDelConfigRequestPost();

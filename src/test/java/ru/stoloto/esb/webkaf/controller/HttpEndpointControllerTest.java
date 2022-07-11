@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.yml")
-class WebKafConsumerControllerTest {
-    public WebKafConsumerControllerTest(@Autowired RestTemplate restTemplate,
-                                        @Autowired ObjectMapper jsonMapper,
-                                        @LocalServerPort int port) {
+class HttpEndpointControllerTest {
+    public HttpEndpointControllerTest(@Autowired RestTemplate restTemplate,
+                                      @Autowired ObjectMapper jsonMapper,
+                                      @LocalServerPort int port) {
         this.restTemplate = restTemplate;
         this.jsonMapper = jsonMapper;
         this.port = port;
@@ -30,7 +30,7 @@ class WebKafConsumerControllerTest {
 
     @Test
     @Disabled
-    void testConsume() throws URISyntaxException, MalformedURLException {
+    void testConsumeProduce() throws URISyntaxException, MalformedURLException {
         URL url = new URL(http, host, port, DummyObjectFactory.createTestUri());
 
         Long offset = restTemplate.postForObject(url.toURI(), "Hello, WebKaf", Long.class);
@@ -39,7 +39,7 @@ class WebKafConsumerControllerTest {
 
     @BeforeEach
     void addConfig() throws Exception {
-        new WebKafBindingApiControllerTest(restTemplate, jsonMapper, port).test_addConfig();
+        new ApplicationApiControllerTest(restTemplate, jsonMapper, port).addConfig();
     }
 
     final RestTemplate restTemplate;

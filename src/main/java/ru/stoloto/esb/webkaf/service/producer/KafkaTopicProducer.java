@@ -19,13 +19,13 @@ public class KafkaTopicProducer implements TopicProducer {
 
     @Override
     public ListenableFuture<SendResult<String, Object>> produce(Object payload, String brokerUrl, @NonNull String topic) {
-        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, payload);
-        future.addCallback(
+        var listenableFuture = kafkaTemplate.send(topic, payload);
+        listenableFuture.addCallback(
                 new ListenableFutureCallback<>() {
                     @Override
                     public void onSuccess(SendResult<String, Object> result) {
                         RecordMetadata metadata = result.getRecordMetadata();
-                        log.info("Message produced: payload={}, offset={}", payload, metadata.offset());
+                        log.debug("Message produced: payload={}, offset={}", payload, metadata.offset());
                     }
 
                     @Override
@@ -33,7 +33,7 @@ public class KafkaTopicProducer implements TopicProducer {
                         log.error("Unable to produce message, cause '{}'", t.getMessage());
                     }
                 });
-        return future;
+        return listenableFuture;
     }
 
     private final KafkaTemplate<String, Object> kafkaTemplate;

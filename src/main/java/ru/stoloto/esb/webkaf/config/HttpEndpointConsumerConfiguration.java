@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Configuration
 @EnableWebMvc
-public class ApplicationConfiguration {
+public class HttpEndpointConsumerConfiguration {
 
     @Bean
     public HttpMessageConverter<?> httpMessageConverter(ObjectMapper objectMapper) {

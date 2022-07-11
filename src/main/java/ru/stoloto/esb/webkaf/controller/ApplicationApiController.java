@@ -25,9 +25,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/v1", consumes = "application/json", produces = "application/json")
-public class WebKafBindingApiController {
-    public WebKafBindingApiController(@Autowired ObjectMapper jsonMapper,
-                                      @Autowired BindingManager bindingManager) {
+public class ApplicationApiController {
+    public ApplicationApiController(@Autowired ObjectMapper jsonMapper,
+                                    @Autowired BindingManager bindingManager) {
         this.jsonMapper = jsonMapper;
         this.bindingManager = bindingManager;
     }

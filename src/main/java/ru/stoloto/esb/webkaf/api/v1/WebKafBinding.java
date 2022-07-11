@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(description = "Конфигурация. Связывает Http Uri c Kafka Topic в разрезе группы интеграции")
+@ApiModel(description = "WebKaf Binding configuration. It binds HTTP Server's URI to Kafka topic, so that POST's payload on that URI is going to be produced to the topic")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
