@@ -6,6 +6,11 @@ import org.springframework.util.concurrent.ListenableFuture;
 
 public interface TopicProducer {
 
-    ListenableFuture<SendResult<String, String>> produce(String payload, String brokerUrl, @NonNull String topic);
-
+    /**
+     * @param payload   Payload to produce
+     * @param brokerUrl Broker or queue manager URL
+     * @param topic     Producer topic name
+     * @return          Future object to acquire result asynchronously
+     */
+    ListenableFuture<SendResult<String, Object>> produce(Object payload, String brokerUrl, @NonNull String topic);
 }

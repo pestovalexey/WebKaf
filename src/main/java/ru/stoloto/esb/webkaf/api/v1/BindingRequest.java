@@ -18,5 +18,4 @@ public class BindingRequest {
     @ApiModelProperty(required = true, value = "URI path to bind")
     @JsonProperty
     private String uri;
-
 }

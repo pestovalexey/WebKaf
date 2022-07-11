@@ -22,7 +22,7 @@ public class KafkaProducerConfiguration {
     private String bootstrapAddress;
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    public ProducerFactory<String, Object> producerFactory() {
         Map<String, Object> conf = new HashMap<>();
         conf.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -31,20 +31,14 @@ public class KafkaProducerConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    public KafkaTemplate<String, Object> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-//    @Bean
-//    @Primary
-//    public KafkaTopicProducer kafkaTopicProducer(KafkaTemplate<String, String> kafkaTemplate) {
-//        return new KafkaTopicProducer(kafkaTemplate);
-//    }
-
     @Bean
     public KafkaAdmin kafkaAdmin() {
-        return new KafkaAdmin(new HashMap<>() {{
-            put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        return new KafkaAdmin(new HashMap<>() {
+            {put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         }});
     }
 

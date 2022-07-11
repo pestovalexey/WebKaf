@@ -34,12 +34,8 @@ public class WebKafConsumerController {
             return null;
         }
 
-        ListenableFuture<SendResult<String, String>> future = kafkaTopicProducer.produce(
-                toPayload(request),
-                binding.getKafkaUrl(),
-                binding.getKafkaTopic()
-        );
-        long offset = future.get()
+        var future = kafkaTopicProducer.produce(toPayload(request), binding.getKafkaUrl(), binding.getKafkaTopic());
+        var offset = future.get()
                 .getRecordMetadata()
                 .offset();
 

@@ -13,18 +13,17 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Slf4j
 @Service
 public class KafkaTopicProducer implements TopicProducer {
-
-    public KafkaTopicProducer(@Autowired KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaTopicProducer(@Autowired KafkaTemplate<String, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
-    public ListenableFuture<SendResult<String, String>> produce(String payload, String kafkaUrl, @NonNull String kafkaTopic) {
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(kafkaTopic, payload);
+    public ListenableFuture<SendResult<String, Object>> produce(Object payload, String brokerUrl, @NonNull String topic) {
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, payload);
         future.addCallback(
                 new ListenableFutureCallback<>() {
                     @Override
-                    public void onSuccess(SendResult<String, String> result) {
+                    public void onSuccess(SendResult<String, Object> result) {
                         RecordMetadata metadata = result.getRecordMetadata();
                         log.info("Message produced: payload={}, offset={}", payload, metadata.offset());
                     }
@@ -37,5 +36,5 @@ public class KafkaTopicProducer implements TopicProducer {
         return future;
     }
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 }

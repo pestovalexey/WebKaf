@@ -53,5 +53,4 @@ public class ApplicationConfiguration {
     public Map<String, WebKafBinding> uriToBinding() {
         return new ConcurrentHashMap<>();
     }
-
 }
