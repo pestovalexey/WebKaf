@@ -19,8 +19,9 @@ import ru.stoloto.esb.webkaf.api.v1.WebKafBinding;
 import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.yml")
 class WebKafBindingApiControllerTest extends WebKafBaseTest {
 

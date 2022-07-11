@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +17,7 @@ import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.yml")
 class WebKafConsumerControllerTest {
     public WebKafConsumerControllerTest(@Autowired RestTemplate restTemplate,
@@ -29,7 +30,7 @@ class WebKafConsumerControllerTest {
 
     @Test
     @Disabled
-    void test_consume() throws URISyntaxException, MalformedURLException {
+    void testConsume() throws URISyntaxException, MalformedURLException {
         URL url = new URL(http, host, port, DummyObjectFactory.createTestUri());
 
         Long offset = restTemplate.postForObject(url.toURI(), "Hello, WebKaf", Long.class);
