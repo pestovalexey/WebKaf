@@ -1,0 +1,20 @@
+spring:
+    profiles:
+        active: default
+    application:
+        name: WebKaf
+    main:
+        log-startup-info: true
+    kafka:
+        bootstrap-servers: localhost:9092
+
+logging:
+    level:
+        root: info
+        ru.stoloto.esb.webkaf.controller: debug
+        ru.stoloto.esb.webkaf.service: debug
+        ru.stoloto.esb.webkaf.service.producer: debug
+
+server:
+    servlet:
+        context-path: /webkaf
